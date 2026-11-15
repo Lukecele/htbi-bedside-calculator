@@ -45,6 +45,7 @@ $$\text{HTBI} = 0.40 \cdot (1 - P_{\text{hist}}) + 0.35 \cdot M_{\text{mech}} + 
 
 The model is empirically calibrated on retrospective cohorts:
 * **MSKCC Lung Adenocarcinoma Discovery Cohort ($N = 604$, 98 recurrences):** Multivariable continuous $\text{HR} = 2.49$ ($95\%\text{ CI: } 1.00\text{--}6.18$, $p = 0.050$), binary $\text{HR} = 1.89$ ($p = 0.029$), bootstrap $\Delta C\text{-index} = +0.050$ ($p = 0.044$).
+* **Independent High-Grade Component Multi-Center Replication ($N = 1,539$):** Real-world Stage I surgical cohort (Liang et al., *Cancer Med* 2026, DOI: [10.1002/cam4.72439](https://doi.org/10.1002/cam4.72439)) independently validating the $(1 - P_{\text{hist}})$ solid/micropapillary penalty with DFS $\text{HR} = 3.95$ ($95\%\text{ CI: } 1.53\text{--}10.15$, $p < 0.001$).
 * **Surgical GI Complete-Case Blood Chemistry Cohort ($N = 1,056$):** 5-year overall survival stratified from $69.4\%$ (Low HTBI) to $56.7\%$ (High HTBI) (Log-rank $p = 3.81 \times 10^{-7}$, multivariable $\text{HR} = 1.434$, $p = 0.00224$).
 * **ctDNA Lead Time Invariant:** Analytically reproduces the empirical $5.45\text{-month}$ median lead time between molecular ctDNA detection and radiographic CT imaging progression.
 
