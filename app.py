@@ -1,7 +1,31 @@
+import sys
 import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
+
+# ==============================================================================
+# TERMINAL STAR PROMPT BANNER (OSC 8 HYPERLINK COMPLIANT)
+# ==============================================================================
+@st.cache_resource
+def _emit_terminal_star_banner():
+    banner = (
+        "\x1b[1;36m┌────────────────────────────────────────────────────────────────────────┐\n"
+        "│ \x1b[1;32m🧬 HTBI Bedside Calculator & Research Explorer v1.0.0\x1b[1;36m                  │\n"
+        "│                                                                        │\n"
+        "│ \x1b[1;33m⭐ If this in silico biophysical tool supports your research, please\x1b[1;36m   │\n"
+        "│ \x1b[1;33m   consider giving the repository a star on GitHub:\x1b[1;36m                    │\n"
+        "│ 👉 \x1b[1;34mhttps://github.com/Lukecele/htbi-bedside-calculator\x1b[1;36m                 │\n"
+        "└────────────────────────────────────────────────────────────────────────┘\x1b[0m\n"
+    )
+    try:
+        sys.stdout.write(banner)
+        sys.stdout.flush()
+    except Exception:
+        pass
+    return True
+
+_emit_terminal_star_banner()
 
 # ==============================================================================
 # PAGE CONFIGURATION & MEDICAL CALCULATOR STYLING
@@ -150,7 +174,7 @@ def compute_htbi(stage, grade, desmo, tils, nlr, crp, alb, smoking, bmi):
 # HEADER SECTION
 # ==============================================================================
 st.markdown('<div class="main-title">🧬 HTBI Interactive Biophysical Calculator</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Host-Tumor Biophysical Index: Dynamic Translation of Reaction-Diffusion Transport, Desmoplasia & Inflammation into Relapse Kinetics · <strong>Luca Celebrano (Università di Napoli Federico II)</strong></div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-title">Host-Tumor Biophysical Index: Dynamic Translation of Reaction-Diffusion Transport, Desmoplasia & Inflammation into Relapse Kinetics · <strong>Luca Celebrano (Università di Napoli Federico II)</strong> · <a href="https://github.com/Lukecele/htbi-bedside-calculator" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">⭐ Star on GitHub</a></div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="disclaimer-box">

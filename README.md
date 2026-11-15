@@ -56,9 +56,14 @@ The model is empirically calibrated on retrospective cohorts:
 git clone https://github.com/Lukecele/htbi-bedside-calculator.git
 cd htbi-bedside-calculator
 pip install -r requirements.txt
+
+# Option A: Launch the interactive web dashboard
 streamlit run app.py
+
+# Option B: Run headless calculation directly in terminal
+python3 cli.py --stage "Stage II" --grade G2 --desmoplasia Moderate
 ```
-Open `http://localhost:8501` in your browser.
+For web dashboard, open `http://localhost:8501` in your browser.
 
 ---
 
