@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this software, computational model, or interactive explorer in your research, please cite it as below."
+title: "HTBI Research Explorer: Interactive Biophysical Risk Modeler"
+abstract: "An interactive in silico research and translational exploratory dashboard evaluating the Host-Tumor Biophysical Index (HTBI) across post-resection solid oncology cohorts."
+version: 1.0.0
+date-released: 2026-11-15
+license: CC-BY-4.0
+authors:
+  - family-names: Celebrano
+    given-names: Luca
+    affiliation: "Department of Clinical Medicine and Surgery, School of Medicine and Surgery, Università degli Studi di Napoli Federico II, Naples, Italy"
+repository-code: "https://github.com/Lukecele/htbi-bedside-calculator"
+url: "https://htbi-bedside-calculator-yu8jwzkifktp2bvvs4ped4.streamlit.app/"
+keywords:
+  - "mathematical oncology"
+  - "biophysics"
+  - "cancer relapse kinetics"
+  - "host-tumor biophysical index"
+  - "htbi"
+  - "microenvironment"
+  - "solid tumors"
+  - "risk modeling"
+  - "streamlit"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Celebrano
+      given-names: Luca
+  title: "Continuum Biophysics of Post-Resection Relapse Kinetics: Resolving the R0 Margins Paradox and ADAURA Post-Adjuvant Rebound via a Validated Host-Tumor Biophysical Index (HTBI)"
+  year: 2026
+  doi: "10.21203/rs.3.rs-11695210/v1"
+  url: "https://doi.org/10.21203/rs.3.rs-11695210/v1"
+references:
+  - type: data
+    authors:
+      - family-names: Celebrano
+        given-names: Luca
+    title: "Continuum Biophysics of Post-Resection Relapse Kinetics: Code and Analysis Pipeline"
+    year: 2026
+    doi: "10.5281/zenodo.24118328"
+    url: "https://doi.org/10.5281/zenodo.24118328"
