@@ -7,17 +7,17 @@ import plotly.graph_objects as go
 # PAGE CONFIGURATION & MEDICAL CALCULATOR STYLING
 # ==============================================================================
 st.set_page_config(
-    page_title="HTBI Calculator | In Silico Oncology",
+    page_title="HTBI Research Calculator | In Silico Oncology",
     page_icon="🧬",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for MDCalc-style interactive medical dashboard
+# Custom CSS for high-responsiveness and clear visual feedback
 st.markdown("""
 <style>
     .main-title {
-        font-size: 2.1rem;
+        font-size: 2.2rem;
         font-weight: 800;
         color: #0f172a;
         margin-bottom: 2px;
@@ -42,117 +42,115 @@ st.markdown("""
         background-color: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
+        padding: 18px 20px;
+        margin-bottom: 18px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
     }
     .input-header {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         font-weight: 700;
         color: #1e293b;
-        margin-bottom: 14px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        margin-bottom: 12px;
         border-bottom: 1px solid #f1f5f9;
-        padding-bottom: 8px;
+        padding-bottom: 6px;
     }
     .tier-badge-high {
         background-color: #fee2e2;
         color: #991b1b;
         border: 1px solid #fecaca;
-        padding: 12px 16px;
+        padding: 10px 14px;
         border-radius: 8px;
         font-weight: 700;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         text-align: center;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
     }
     .tier-badge-low {
         background-color: #dcfce7;
         color: #166534;
         border: 1px solid #bbf7d0;
-        padding: 12px 16px;
+        padding: 10px 14px;
         border-radius: 8px;
         font-weight: 700;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         text-align: center;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# COMPUTATION ENGINE (Reaction-Diffusion Translation)
+# ULTRA-RESPONSIVE CONTINUOUS COMPUTATION ENGINE
 # ==============================================================================
 def compute_htbi(stage, grade, desmo, tils, nlr, crp, alb, smoking, bmi):
     # 1. Cellular Polarity Loss (1 - P_hist in [0.0, 1.0])
     grade_map = {
-        "G1: Well-differentiated / Lepidic": 0.10,
+        "G1: Well-differentiated / Lepidic": 0.12,
         "G2: Moderately differentiated / Acinar / Papillary": 0.50,
-        "G3: Poorly differentiated / Solid / Micropapillary": 0.90
+        "G3: Poorly differentiated / Solid / Micropapillary": 0.88
     }
     p_seed_loss = grade_map.get(grade, 0.50)
 
     # 2. Stromal Mechanical Transport Resistance (M_mech in [0.0, 1.0])
-    desmo_map = {"None / Minimal": 0.05, "Low": 0.30, "Moderate": 0.65, "High / Dense": 0.95}
+    desmo_map = {"None / Minimal": 0.08, "Low": 0.32, "Moderate": 0.65, "High / Dense": 0.92}
     m_base = desmo_map.get(desmo, 0.65)
-    tils_mod = (15.0 - tils) / 100.0
-    m_mech = np.clip(m_base + tils_mod * 0.20, 0.0, 1.0)
+    
+    # Continuous TILs infiltration modulation: higher TILs actively soften/permeabilize stroma
+    tils_effect = ((15.0 - tils) / 35.0) * 0.18
+    m_mech = float(np.clip(m_base + tils_effect, 0.02, 0.98))
 
     # 3. Systemic Inflammatory Tension (Phi_blood in [0.0, 1.0])
-    # modified Glasgow Prognostic Score (mGPS)
-    if crp > 10.0 and alb < 35.0:
-        mgps = 2
-    elif crp > 10.0 or alb < 35.0:
-        mgps = 1
-    else:
-        mgps = 0
-    mgps_score = mgps / 2.0
-
-    # Log-normalized NLR component
-    nlr_norm = np.clip((np.log1p(nlr) - np.log1p(2.0)) / (np.log1p(8.0) - np.log1p(2.0)), 0.0, 1.0)
+    # Continuous smooth hs-CRP (log-sigmoid from 0.2 mg/L to 50.0 mg/L)
+    crp_norm = np.clip((np.log1p(crp) - np.log1p(0.5)) / (np.log1p(40.0) - np.log1p(0.5)), 0.0, 1.0)
     
-    # Lifestyle / metabolic background (Quasi-static sigma_soil)
-    smoke_mod = 0.10 if smoking == "Current Smoker" else (0.05 if smoking == "Former Smoker" else 0.0)
-    bmi_mod = 0.08 if bmi >= 30.0 else (0.03 if bmi >= 25.0 else 0.0)
+    # Continuous smooth Albumin (negative acute phase: 48 g/L -> 0.0, 26 g/L -> 1.0)
+    alb_norm = np.clip((46.0 - alb) / (46.0 - 28.0), 0.0, 1.0)
+    
+    # Continuous smooth NLR (from 1.0 to 7.0)
+    nlr_norm = np.clip((np.log1p(nlr) - np.log1p(1.0)) / (np.log1p(7.0) - np.log1p(1.0)), 0.0, 1.0)
+    
+    # Continuous Lifestyle / Metabolic Background (sigma_soil)
+    smoke_val = {"Never Smoker": 0.0, "Former Smoker": 0.05, "Current Smoker": 0.12}.get(smoking, 0.0)
+    bmi_val = np.clip((bmi - 22.0) / (36.0 - 22.0), 0.0, 1.0) * 0.10 if bmi >= 22.0 else np.clip((22.0 - bmi) / (22.0 - 16.0), 0.0, 1.0) * 0.08
 
-    phi_blood = np.clip(0.55 * mgps_score + 0.35 * nlr_norm + smoke_mod + bmi_mod, 0.0, 1.0)
+    phi_blood = float(np.clip(0.35 * crp_norm + 0.25 * alb_norm + 0.30 * nlr_norm + smoke_val + bmi_val, 0.02, 0.98))
 
-    # Composite HTBI
-    htbi = 0.40 * p_seed_loss + 0.35 * m_mech + 0.25 * phi_blood
-    htbi = float(np.clip(htbi, 0.0, 1.0))
+    # Composite Host-Tumor Biophysical Index (HTBI)
+    htbi = float(np.clip(0.40 * p_seed_loss + 0.35 * m_mech + 0.25 * phi_blood, 0.01, 0.99))
 
-    # Recurrence & Survival Projections calibrated on MSKCC (N=604) and GI Surgical Blood (N=1,056)
-    stage_num = 1 if "Stage I" in stage else (2 if "Stage II" in stage else 3)
-    base_hazard = 0.08 * (stage_num ** 1.3)
-    patient_hazard = base_hazard * (np.exp(0.911 * htbi))
+    # 4. Clinical Recurrence & Survival Projections (Coupling TNM Stage + Biophysical HTBI)
+    # Stage scaling factor: Stage I -> 1.0, Stage II -> 1.85, Stage III -> 2.90
+    stage_mult = {"Stage I (Localized)": 1.0, "Stage II (Locally Advanced)": 1.85, "Stage III (Regional Nodal+)": 2.90}.get(stage, 1.85)
+    
+    # Calibrated Cox baseline hazard
+    base_hazard_per_year = 0.065 * stage_mult
+    patient_hazard = base_hazard_per_year * np.exp(1.15 * (htbi - 0.45))
 
-    prob_24m = float(1.0 - np.exp(-patient_hazard * 2.0)) * 100.0
-    prob_36m = float(1.0 - np.exp(-patient_hazard * 3.0)) * 100.0
-    prob_5yr_os = float(np.exp(-patient_hazard * 1.5 * 5.0)) * 100.0
+    prob_24m = float(np.clip((1.0 - np.exp(-patient_hazard * 2.0)) * 100.0, 3.0, 95.0))
+    prob_36m = float(np.clip((1.0 - np.exp(-patient_hazard * 3.0)) * 100.0, 5.0, 98.0))
 
     # Analytical ctDNA Lead Time Invariant (months prior to CT imaging)
-    base_lead_days = 6.644 * 24.6  # 163.4 days ~ 5.45 months
-    lead_time_months = (base_lead_days / 30.44) * (1.0 - 0.25 * m_mech)
+    # Higher desmoplasia (M_mech) increases ctDNA physical retention and degradation
+    base_lead_months = 5.45
+    lead_time_months = float(base_lead_months * (1.0 - 0.30 * (m_mech - 0.50)))
 
     return {
         "htbi": htbi,
-        "risk_tier": "High Risk" if htbi >= 0.45 else "Low Risk",
+        "risk_tier": "High Biophysical Risk" if htbi >= 0.45 else "Low Biophysical Risk",
         "p_seed_loss": p_seed_loss,
         "m_mech": m_mech,
         "phi_blood": phi_blood,
         "prob_24m": prob_24m,
         "prob_36m": prob_36m,
-        "prob_5yr_os": prob_5yr_os,
-        "lead_time": lead_time_months
+        "lead_time": lead_time_months,
+        "patient_hazard": patient_hazard
     }
 
 # ==============================================================================
-# HEADER & ETHICAL COMPLIANCE
+# HEADER SECTION
 # ==============================================================================
 st.markdown('<div class="main-title">🧬 HTBI Interactive Biophysical Calculator</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Host-Tumor Biophysical Index Calculator: Translating Microvascular Transport, Desmoplasia & Inflammation into Relapse Kinetics · <strong>Author: Luca Celebrano, MD Candidate (Università di Napoli Federico II)</strong></div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-title">Host-Tumor Biophysical Index: Dynamic Translation of Reaction-Diffusion Transport, Desmoplasia & Inflammation into Relapse Kinetics · <strong>Luca Celebrano (Università di Napoli Federico II)</strong></div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="disclaimer-box">
@@ -162,59 +160,75 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# 2-COLUMN MD-CALC LAYOUT: INPUTS (LEFT) vs LIVE RESULTS (RIGHT)
+# 2-COLUMN LAYOUT: INPUTS (LEFT) vs REAL-TIME VISUALIZATIONS (RIGHT)
 # ==============================================================================
 col_input, col_output = st.columns([1.05, 1.25], gap="large")
 
 with col_input:
-    st.markdown("### 📝 Inserisci Parametri Paziente")
+    st.markdown("### 📝 Parametri Clinici & Biofisici")
     
     # CARD 1: Histopathology
     st.markdown('<div class="input-card">', unsafe_allow_html=True)
-    st.markdown('<div class="input-header">🔬 1. Istologia e Architettura Tumorale</div>', unsafe_allow_html=True)
+    st.markdown('<div class="input-header">🔬 1. Istologia e Architettura Tumorale (Seed & Stroma)</div>', unsafe_allow_html=True)
     
     stage_in = st.selectbox(
-        "Stadio TNM Patologico",
+        "Stadio TNM Patologico (Impatta il rischio assoluto)",
         ["Stage I (Localized)", "Stage II (Locally Advanced)", "Stage III (Regional Nodal+)"],
         index=1,
-        help="Classificazione TNM UICC/AJCC 8a Edizione"
+        help="Lo stadio TNM modula la quota assoluta di probabilità di recidiva a 24/36 mesi"
     )
     
     grade_in = st.selectbox(
-        "Grado di Differenziazione Glandulare (Seme)",
+        "Grado Istologico di Differenziazione (P_hist)",
         [
             "G1: Well-differentiated / Lepidic",
             "G2: Moderately differentiated / Acinar / Papillary",
             "G3: Poorly differentiated / Solid / Micropapillary"
         ],
         index=1,
-        help="Riflette la perdita di polarità apico-basale epiteliale (P_hist)"
+        help="G1 (polarità preservata, punteggio basso) -> G3 (perdita totale di polarità epiteliale)"
     )
     
     col_h1, col_h2 = st.columns(2)
     with col_h1:
         desmo_in = st.selectbox(
-            "Desmoplasia Stromale",
+            "Desmoplasia Stromale (M_mech)",
             ["None / Minimal", "Low", "Moderate", "High / Dense"],
             index=2,
-            help="Fibrosi e deposizione di collagene che ostacola il trasporto radiale del farmaco (M_mech)"
+            help="Spessore della capsula fibrotica e barriera di trasporto vascolare K0"
         )
     with col_h2:
-        tils_in = st.slider("TILs Stromali (%)", min_value=0, max_value=60, value=15, step=5)
+        tils_in = st.slider(
+            "TILs Stromali (%)",
+            min_value=0, max_value=60, value=15, step=2,
+            help="Infiltrato linfocitario intratumorale: attenua la resistenza meccanica dello stroma"
+        )
     
     st.markdown('</div>', unsafe_allow_html=True)
 
     # CARD 2: Blood Biomarkers
     st.markdown('<div class="input-card">', unsafe_allow_html=True)
-    st.markdown('<div class="input-header">🩸 2. Biomarcatori Ematici di Routine (Pre-Op)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="input-header">🩸 2. Biomarcatori Ematici Pre-Operatori (Soil)</div>', unsafe_allow_html=True)
     
     col_b1, col_b2 = st.columns(2)
     with col_b1:
-        nlr_in = st.number_input("Rapporto Neutrofili/Linfociti (NLR)", min_value=0.5, max_value=25.0, value=2.5, step=0.1, help="Rapporto assoluto emocromo. Valore normale < 2.0")
+        nlr_in = st.slider(
+            "Rapporto Neutrofili/Linfociti (NLR)",
+            min_value=0.8, max_value=12.0, value=2.4, step=0.1,
+            help="Ogni variazione dell'NLR modifica in continuo la componente infiammatoria Phi_blood"
+        )
     with col_b2:
-        crp_in = st.number_input("Proteina C-Reattiva (hs-CRP, mg/L)", min_value=0.1, max_value=150.0, value=4.5, step=0.5, help="Valore normale < 2.5 mg/L")
+        crp_in = st.slider(
+            "Proteina C-Reattiva (hs-CRP, mg/L)",
+            min_value=0.2, max_value=50.0, value=3.8, step=0.2,
+            help="Risposta continua: riflette lo stato infiammatorio sistemico del paziente"
+        )
     
-    alb_in = st.number_input("Albumina Sierica (g/L)", min_value=15.0, max_value=55.0, value=40.0, step=1.0, help="Range fisiologico: 35 - 50 g/L")
+    alb_in = st.slider(
+        "Albumina Sierica (g/L)",
+        min_value=24.0, max_value=48.0, value=40.0, step=0.5,
+        help="Bassi livelli riflettono consumo metabolico e stress infiammatorio cronico"
+    )
     st.markdown('</div>', unsafe_allow_html=True)
 
     # CARD 3: Host Background
@@ -224,14 +238,14 @@ with col_input:
     with col_c1:
         smoke_in = st.selectbox("Abitudine al Fumo", ["Never Smoker", "Former Smoker", "Current Smoker"], index=1)
     with col_c2:
-        bmi_in = st.number_input("Indice Massa Corporea (BMI)", min_value=16.0, max_value=45.0, value=25.0, step=0.5)
+        bmi_in = st.slider("Indice di Massa Corporea (BMI)", min_value=17.0, max_value=40.0, value=24.5, step=0.5)
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Run calculation in real-time
 res = compute_htbi(stage_in, grade_in, desmo_in, tils_in, nlr_in, crp_in, alb_in, smoke_in, bmi_in)
 
 with col_output:
-    st.markdown("### 📊 Risultati Calcolati in Tempo Reale")
+    st.markdown("### 📊 Risultati Dinamici in Tempo Reale")
     
     # TIER BADGE
     if res["htbi"] >= 0.45:
@@ -244,7 +258,7 @@ with col_output:
         mode="gauge+number",
         value=res["htbi"],
         domain={'x': [0, 1], 'y': [0, 1]},
-        title={'text': "Punteggio HTBI Globale", 'font': {'size': 18, 'color': '#0f172a'}},
+        title={'text': "Punteggio Biofisico HTBI (0.00 - 1.00)", 'font': {'size': 18, 'color': '#0f172a'}},
         gauge={
             'axis': {'range': [0.0, 1.0], 'tickwidth': 1, 'tickcolor': "#334155"},
             'bar': {'color': "#0f172a", 'thickness': 0.25},
@@ -272,7 +286,7 @@ with col_output:
         st.metric(
             "Rischio Recidiva a 24 Mesi",
             f"{res['prob_24m']:.1f}%",
-            delta=f"{'+' if res['prob_24m']>25 else '-'}{abs(res['prob_24m']-25):.1f}% vs media",
+            delta=f"{'+' if res['prob_24m']>25 else '-'}{abs(res['prob_24m']-25):.1f}% vs ref",
             delta_color="inverse"
         )
     with m2:
@@ -280,7 +294,7 @@ with col_output:
     with m3:
         st.metric(
             "ctDNA Lead Time Stimato",
-            f"{res['lead_time']:.1f} Mesi",
+            f"{res['lead_time']:.2f} Mesi",
             help="Finestra temporale analitica tra comparsa del ctDNA molecolare e visibilità alla TC."
         )
 
@@ -293,7 +307,7 @@ with col_output:
         r=vals + [vals[0]],
         theta=categories + [categories[0]],
         fill='toself',
-        fillcolor='rgba(37, 99, 235, 0.2)',
+        fillcolor='rgba(37, 99, 235, 0.22)',
         line=dict(color='#2563eb', width=2.5),
         name='Triade Biofisica'
     ))
@@ -307,22 +321,21 @@ with col_output:
 
     # 60-MONTH PROJECTED CURVE
     t_months = np.linspace(0, 60, 61)
-    stg_val = 1 if "Stage I" in stage_in else (2 if "Stage II" in stage_in else 3)
-    h_pat = 0.08 * (stg_val ** 1.3) * np.exp(0.911 * res['htbi'])
-    h_low = 0.08 * (stg_val ** 1.3) * np.exp(0.911 * 0.20)
-
-    surv_pat = np.exp(-h_pat * (t_months / 12.0)) * 100.0
-    surv_low = np.exp(-h_low * (t_months / 12.0)) * 100.0
+    surv_pat = np.exp(-res['patient_hazard'] * (t_months / 12.0)) * 100.0
+    
+    # Ideal baseline (Stage I, HTBI = 0.15)
+    ideal_hazard = 0.065 * 1.0 * np.exp(1.15 * (0.15 - 0.45))
+    surv_ideal = np.exp(-ideal_hazard * (t_months / 12.0)) * 100.0
 
     fig_surv = go.Figure()
     fig_surv.add_trace(go.Scatter(
         x=t_months, y=surv_pat,
-        mode='lines', name='Traiettoria Paziente',
+        mode='lines', name=f'Paziente ({stage_in.split()[0]})',
         line=dict(color='#dc2626' if res['htbi']>=0.45 else '#16a34a', width=3)
     ))
     fig_surv.add_trace(go.Scatter(
-        x=t_months, y=surv_low,
-        mode='lines', name='Baseline Fisiologico (HTBI 0.20)',
+        x=t_months, y=surv_ideal,
+        mode='lines', name='Riferimento Ottimale (Stadio I, HTBI 0.15)',
         line=dict(color='#94a3b8', width=2, dash='dash')
     ))
     fig_surv.update_layout(
