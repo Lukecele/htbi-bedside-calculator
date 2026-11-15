@@ -4,16 +4,16 @@ import pandas as pd
 import plotly.graph_objects as go
 
 # ==============================================================================
-# PAGE CONFIGURATION & MEDICAL STYLING
+# PAGE CONFIGURATION & ACADEMIC/RESEARCH STYLING
 # ==============================================================================
 st.set_page_config(
-    page_title="HTBI Bedside Clinical Calculator",
-    page_icon="🧬",
+    page_title="HTBI Research Explorer | Biophysical Modeling",
+    page_icon="🔬",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for high-clarity clinical typography and dashboard cards
+# Custom CSS for academic clarity, clinical-grade charts, and legal disclaimers
 st.markdown("""
 <style>
     .reportview-container {
@@ -27,31 +27,25 @@ st.markdown("""
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         margin-bottom: 15px;
     }
-    .metric-value-high {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #dc2626;
+    .disclaimer-banner {
+        background-color: #fffbeb;
+        border: 1px solid #fef3c7;
+        border-left: 5px solid #f59e0b;
+        padding: 14px 18px;
+        border-radius: 6px;
+        margin-bottom: 22px;
+        font-size: 0.90rem;
+        color: #92400e;
+        line-height: 1.5;
     }
-    .metric-value-low {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #16a34a;
-    }
-    .metric-label {
-        font-size: 0.9rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        color: #64748b;
-        letter-spacing: 0.05em;
-    }
-    .clinical-banner-high {
+    .tier-banner-high {
         background-color: #fef2f2;
         border-left: 5px solid #ef4444;
         padding: 15px;
         border-radius: 6px;
         margin-bottom: 20px;
     }
-    .clinical-banner-low {
+    .tier-banner-low {
         background-color: #f0fdf4;
         border-left: 5px solid #22c55e;
         padding: 15px;
@@ -62,7 +56,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# CALCULATION ENGINE (Coupled Reaction-Diffusion Translation)
+# CALCULATION ENGINE (Biophysical Reaction-Diffusion Parameterization)
 # ==============================================================================
 def compute_htbi(stage, grade, desmo, tils, nlr, crp, alb, smoking, bmi):
     # 1. Cellular Polarity Loss (1 - P_hist in [0.0, 1.0])
@@ -80,7 +74,7 @@ def compute_htbi(stage, grade, desmo, tils, nlr, crp, alb, smoking, bmi):
     m_mech = np.clip(m_base + tils_mod * 0.20, 0.0, 1.0)
 
     # 3. Systemic Inflammatory Tension (Phi_blood in [0.0, 1.0])
-    # modified Glasgow Prognostic Score (mGPS)
+    # Modified Glasgow Prognostic Score (mGPS)
     if crp > 10.0 and alb < 35.0:
         mgps = 2
     elif crp > 10.0 or alb < 35.0:
@@ -118,7 +112,7 @@ def compute_htbi(stage, grade, desmo, tils, nlr, crp, alb, smoking, bmi):
 
     return {
         "htbi": htbi,
-        "risk_tier": "High Risk" if htbi >= 0.45 else "Low Risk",
+        "risk_tier": "High Biophysical Risk" if htbi >= 0.45 else "Low Biophysical Risk",
         "p_seed_loss": p_seed_loss,
         "m_mech": m_mech,
         "phi_blood": phi_blood,
@@ -129,22 +123,28 @@ def compute_htbi(stage, grade, desmo, tils, nlr, crp, alb, smoking, bmi):
     }
 
 # ==============================================================================
-# HEADER SECTION
+# HEADER & MANDATORY RESEARCH USE ONLY (RUO) DISCLAIMER
 # ==============================================================================
-st.title("🧬 HTBI Bedside Clinical Decision Support")
+st.title("🔬 HTBI Research Explorer: Interactive Biophysical Risk Modeler")
 st.markdown("""
-**Host-Tumor Biophysical Index (HTBI) Calculator for Resected Solid Malignancies**  
-*Translating Multiscale Reaction-Diffusion Transport, Desmoplasia, and Host Systemic Inflammation into Individualized Recurrence Prognostics.*  
+**An In Silico Computational Tool Translating Microvascular Transport Mechanics, Desmoplasia, and Host Inflammatory Tension into Exploratory Risk Stratification.**  
 **Author:** Luca Celebrano, MD Candidate · Department of Clinical Medicine and Surgery, Università degli Studi di Napoli Federico II
 """)
-st.divider()
+
+st.markdown("""
+<div class="disclaimer-banner">
+    <strong>⚖️ STRICTLY FOR ACADEMIC, TRANSLATIONAL, AND RESEARCH USE ONLY (RUO)</strong><br>
+    This software is an exploratory computational model developed to study continuum reaction-diffusion physics and retrospective prognostic associations in solid oncology (calibrated on MSKCC <em>N = 604</em> and Surgical GI <em>N = 1,056</em> cohorts). 
+    <strong>It is NOT a medical device (SaMD), has NOT received regulatory clearance (CE-IVD / FDA), and must NOT be used for primary diagnostic, prognostic, or therapeutic decision-making in clinical care.</strong>
+</div>
+""", unsafe_allow_html=True)
 
 # ==============================================================================
-# SIDEBAR CONTROLS: CLINICAL AND LABORATORY INPUTS
+# SIDEBAR CONTROLS: RESEARCH SPECIMEN PARAMETERS
 # ==============================================================================
-st.sidebar.header("📋 Patient Clinical Parameters")
+st.sidebar.header("🔬 Input Research Parameters")
 
-st.sidebar.subheader("1. Surgical Histopathology")
+st.sidebar.subheader("1. Histopathological Architecture")
 stage_input = st.sidebar.selectbox(
     "Pathologic TNM Stage",
     ["Stage I (Localized)", "Stage II (Locally Advanced)", "Stage III (Regional Nodal+)"],
@@ -152,7 +152,7 @@ stage_input = st.sidebar.selectbox(
 )
 
 grade_input = st.sidebar.selectbox(
-    "Histological Differentiation / Subtype",
+    "Glandular Differentiation / Architectural Grade",
     [
         "G1: Well-differentiated / Lepidic",
         "G2: Moderately differentiated / Acinar / Papillary",
@@ -168,11 +168,11 @@ desmo_input = st.sidebar.selectbox(
 )
 
 tils_input = st.sidebar.slider(
-    "Tumor Infiltrating Lymphocytes (TILs %)",
+    "Stromal Infiltrating Lymphocytes (TILs %)",
     min_value=0.0, max_value=60.0, value=15.0, step=1.0
 )
 
-st.sidebar.subheader("2. Routine Pre-Operative Blood")
+st.sidebar.subheader("2. Pre-Operative Laboratory Biomarkers")
 col_s1, col_s2 = st.sidebar.columns(2)
 with col_s1:
     nlr_input = st.number_input("CBC NLR (Ratio)", min_value=0.5, max_value=20.0, value=2.4, step=0.1)
@@ -181,7 +181,7 @@ with col_s2:
 
 alb_input = st.sidebar.number_input("Serum Albumin (g/L)", min_value=15.0, max_value=55.0, value=40.0, step=1.0)
 
-st.sidebar.subheader("3. Host Physiological Background")
+st.sidebar.subheader("3. Host Baseline Background (Quasi-Static)")
 smoking_input = st.sidebar.selectbox("Smoking History", ["Never Smoker", "Former Smoker", "Current Smoker"], index=1)
 bmi_input = st.sidebar.number_input("Body Mass Index (BMI, kg/m²)", min_value=16.0, max_value=45.0, value=25.2, step=0.5)
 
@@ -192,12 +192,12 @@ res = compute_htbi(
 )
 
 # ==============================================================================
-# MAIN DASHBOARD LAYOUT
+# MAIN DASHBOARD: STRATIFICATION & VISUAL ANALYTICS
 # ==============================================================================
 col_main_left, col_main_right = st.columns([1, 1.2])
 
 with col_main_left:
-    st.subheader("🎯 Biophysical Risk Stratification")
+    st.subheader("🎯 Model Stratification Tier")
     
     # HTBI Gauge Chart
     fig_gauge = go.Figure(go.Indicator(
@@ -223,31 +223,31 @@ with col_main_left:
             }
         }
     ))
-    fig_gauge.update_layout(height=280, margin=dict(l=20, r=20, t=40, b=20))
+    fig_gauge.update_layout(height=270, margin=dict(l=20, r=20, t=35, b=20))
     st.plotly_chart(fig_gauge, use_container_width=True)
 
-    # Risk Tier Banner
+    # Stratification Status Banner
     if res["htbi"] >= 0.45:
         st.markdown(f"""
-        <div class="clinical-banner-high">
-            <h3 style="color: #991b1b; margin:0;">⚠️ High Biophysical Risk Tier (HTBI = {res['htbi']:.3f})</h3>
-            <p style="color: #7f1d1d; margin:5px 0 0 0;">
-                Microenvironmental conditions promote persister dormancy in sub-therapeutic cords and progressive immune exhaustion.
+        <div class="tier-banner-high">
+            <h4 style="color: #991b1b; margin:0;">⚠️ High Biophysical Risk Profile (HTBI = {res['htbi']:.3f})</h4>
+            <p style="color: #7f1d1d; margin:5px 0 0 0; font-size: 0.90rem;">
+                Model flags severe transport decay and elevated systemic inflammatory tension. Matches recurrence trajectories in high-risk retrospective subsets.
             </p>
         </div>
         """, unsafe_allow_html=True)
     else:
         st.markdown(f"""
-        <div class="clinical-banner-low">
-            <h3 style="color: #166534; margin:0;">✅ Low Biophysical Risk Tier (HTBI = {res['htbi']:.3f})</h3>
-            <p style="color: #14532d; margin:5px 0 0 0;">
-                Preserved tissue architecture and low systemic inflammatory tension favor durable cytotoxic immune clearance.
+        <div class="tier-banner-low">
+            <h4 style="color: #166534; margin:0;">✅ Low Biophysical Risk Profile (HTBI = {res['htbi']:.3f})</h4>
+            <p style="color: #14532d; margin:5px 0 0 0; font-size: 0.90rem;">
+                Preserved tissue polarity and low systemic inflammatory background correlate with favorable multi-year relapse-free survival.
             </p>
         </div>
         """, unsafe_allow_html=True)
 
     # 3-Component Breakdown Radar Chart
-    categories = ['Epithelial Polarity Loss (Seed)', 'Stromal Transport Resistance (Matrix)', 'Systemic Inflammatory Tension (Soil)']
+    categories = ['Seed Polarity Loss', 'Stromal Transport Resistance', 'Systemic Inflammatory Tension']
     values = [res['p_seed_loss'], res['m_mech'], res['phi_blood']]
     
     fig_radar = go.Figure()
@@ -257,27 +257,27 @@ with col_main_left:
         fill='toself',
         fillcolor='rgba(59, 130, 246, 0.2)',
         line=dict(color='#2563eb', width=2),
-        name='Patient Biophysical Fingerprint'
+        name='Biophysical Triad'
     ))
     fig_radar.update_layout(
         polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
         showlegend=False,
-        height=280,
+        height=270,
         margin=dict(l=40, r=40, t=20, b=20)
     )
     st.plotly_chart(fig_radar, use_container_width=True)
 
 with col_main_right:
-    st.subheader("📈 Prognostic Trajectories & ctDNA Window")
+    st.subheader("📈 In Silico Projections & ctDNA Horizon")
     
-    # Key Prognostic Metrics Cards
+    # Key Exploratory Metrics Cards
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.metric("24-Month Relapse Risk", f"{res['prob_24m']:.1f}%", delta=f"{'+' if res['prob_24m']>25 else '-'}{abs(res['prob_24m']-25):.1f}% vs baseline", delta_color="inverse")
+        st.metric("Model 24-Mo Relapse Risk", f"{res['prob_24m']:.1f}%", delta=f"{'+' if res['prob_24m']>25 else '-'}{abs(res['prob_24m']-25):.1f}% vs cohort ref", delta_color="inverse")
     with c2:
-        st.metric("36-Month Relapse Risk", f"{res['prob_36m']:.1f}%")
+        st.metric("Model 36-Mo Relapse Risk", f"{res['prob_36m']:.1f}%")
     with c3:
-        st.metric("Predicted ctDNA Lead Time", f"{res['lead_time']:.1f} Mo", help="Expected median interval between molecular ctDNA surge and radiographic recurrence.")
+        st.metric("Analytical ctDNA Lead Time", f"{res['lead_time']:.1f} Mo", help="Theoretical window between micrometastatic ctDNA threshold and radiographic imaging detection.")
 
     # 60-Month Relapse-Free Survival Curve
     time_pts = np.linspace(0, 60, 61)
@@ -290,39 +290,39 @@ with col_main_right:
 
     df_curves = pd.DataFrame({
         "Month": time_pts,
-        "Patient Trajectory": pat_surv,
-        "Optimal Host Baseline": low_surv
+        "Simulated Patient Trajectory": pat_surv,
+        "Optimal Host Reference": low_surv
     })
 
     fig_curves = go.Figure()
-    fig_curves.add_trace(go.Scatter(x=df_curves["Month"], y=df_curves["Patient Trajectory"], mode='lines', name='Patient Trajectory', line=dict(color='#ef4444' if res['htbi']>=0.45 else '#22c55e', width=3)))
-    fig_curves.add_trace(go.Scatter(x=df_curves["Month"], y=df_curves["Optimal Host Baseline"], mode='lines', name='Ideal Host Baseline (HTBI 0.20)', line=dict(color='#94a3b8', width=2, dash='dash')))
+    fig_curves.add_trace(go.Scatter(x=df_curves["Month"], y=df_curves["Simulated Patient Trajectory"], mode='lines', name='Simulated Trajectory', line=dict(color='#ef4444' if res['htbi']>=0.45 else '#22c55e', width=3)))
+    fig_curves.add_trace(go.Scatter(x=df_curves["Month"], y=df_curves["Optimal Host Reference"], mode='lines', name='Favorable Reference (HTBI 0.20)', line=dict(color='#94a3b8', width=2, dash='dash')))
     
     fig_curves.update_layout(
-        title="Projected Relapse-Free Trajectory (60 Months)",
+        title="Simulated Relapse-Free Trajectory (60 Months)",
         xaxis_title="Months Post-Resection",
-        yaxis_title="Relapse-Free Survival (%)",
+        yaxis_title="Estimated RFS Probability (%)",
         yaxis_range=[0, 105],
-        height=280,
+        height=270,
         margin=dict(l=20, r=20, t=40, b=20),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
     )
     st.plotly_chart(fig_curves, use_container_width=True)
 
-    # Actionable Clinical Recommendations Box
-    st.markdown("### 🩺 Actionable Clinical Recommendations")
+    # Mechanistic Research Insights
+    st.markdown("### 🔬 Mechanistic & Exploratory Research Insights")
     if res["htbi"] >= 0.45:
-        st.warning("""
-        **Elevated Risk of Post-Discontinuation Relapse Detected:**
-        * **1. Intensified Molecular Surveillance:** Initiate serial plasma ctDNA monitoring every 3 months. In desmoplastic / high-IFP tumors, dormant persisters shed ctDNA at reduced rates until an angiogenic surge breaches stromal cuffs (~5.45 months lead time before CT scan).
-        * **2. Seed-Soil Co-Targeting Rationale:** Standard adjuvant targeted/chemotherapy alone may fail to sterilize the outer 31.28% annular cord sanctuary ($r > 165\\,\\mu\\text{m}$).
-        * **3. Microenvironmental Decompression:** Consider host anti-inflammatory and lifestyle optimization (systemic hs-CRP normalization, metabolic optimization) to mitigate CD8+ T-cell exhaustion clock ($E_{\\text{imm}}$).
+        st.info("""
+        **Biophysical Hypotheses for High-Risk Microenvironments:**
+        * **Microvascular Cord Shielding:** High stromal desmoplasia ($M_{\\text{mech}}$) and elevated interstitial fluid pressure correlate with poor drug penetration into distal sleeves ($r > 165\\,\\mu\\text{m}$), providing a potential physical explanation for persister dormancy during adjuvant cycles.
+        * **ctDNA Kinetic Window:** The model analytically calculates a median ~5.45-month interval between clonal surge and macroscopic CT recurrence, suggesting an optimal analytical cadence for longitudinal liquid biopsy study designs.
+        * **Host Soil Pre-Conditioning:** High pre-operative inflammatory tone (NLR / mGPS) accelerates CD8+ T-cell exhaustion clock ($E_{\\text{imm}}$), supporting exploratory research into anti-inflammatory host co-modulation.
         """)
     else:
         st.success("""
-        **Favorable Host-Tumor Microenvironment:**
-        * **1. Routine Surveillance:** Standard clinical and radiographic follow-up according to NCCN guidelines.
-        * **2. Low Occult Persistence Index:** Microvascular diffusion penetration and low cumulative host inflammatory damage favor durable remission.
+        **Biophysical Characteristics of Favorable Microenvironments:**
+        * **Preserved Transport Permeability:** Low desmoplastic resistance minimizes sub-therapeutic drug sanctuaries, facilitating complete cytotoxic/targeted clonal clearance.
+        * **Endogenous Immunosurveillance:** Uncompromised baseline host soil correlates with sustained functional memory and low cumulative exhaustion pressure.
         """)
 
 # ==============================================================================
@@ -331,8 +331,8 @@ with col_main_right:
 st.divider()
 st.markdown("""
 <div style="text-align: center; color: #64748b; font-size: 0.85rem;">
-    <strong>Host-Tumor Biophysical Index (HTBI) Framework</strong> · Research Concept & Clinical Tool by Luca Celebrano (MD Candidate, Università degli Studi di Napoli Federico II).<br>
-    Calibrated against MSKCC lung adenocarcinoma (<em>N = 604</em>) and Surgical GI complete-case blood biomarkers (<em>N = 1,056</em>).<br>
-    <em>For investigational and educational use. Not a substitute for formal multidisciplinary clinical board decisions.</em>
+    <strong>Host-Tumor Biophysical Index (HTBI) Research Framework</strong> · Conceptualized by Luca Celebrano (MD Candidate, Università degli Studi di Napoli Federico II).<br>
+    Empirically evaluated across retrospective clinical cohorts (MSKCC <em>N = 604</em>; GI Surgical Blood <em>N = 1,056</em>; TCGA Pan-Cancer <em>N = 1,212</em>).<br>
+    <em>Strictly for investigational, translational research, and computational modeling. Not for medical diagnosis or treatment decisions.</em>
 </div>
 """, unsafe_allow_html=True)
