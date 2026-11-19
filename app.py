@@ -174,7 +174,7 @@ def compute_htbi(stage, grade, desmo, tils, nlr, crp, alb, smoking, bmi):
 # HEADER SECTION
 # ==============================================================================
 st.markdown('<div class="main-title">🧬 HTBI Interactive Biophysical Calculator</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Host-Tumor Biophysical Index: Dynamic Translation of Reaction-Diffusion Transport, Desmoplasia & Inflammation into Relapse Kinetics · <strong>Luca Celebrano (Università di Napoli Federico II)</strong> · <a href="https://github.com/Lukecele/htbi-bedside-calculator" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">⭐ Star on GitHub</a></div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-title">Host-Tumor Biophysical Index: Dynamic Translation of Reaction-Diffusion Transport, Desmoplasia & Inflammation into Relapse Kinetics · <strong>Luca Celebrano (Independent Researcher)</strong> · <a href="https://github.com/Lukecele/htbi-bedside-calculator" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">⭐ Star on GitHub</a></div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="disclaimer-box">
@@ -392,7 +392,7 @@ with col_output:
 st.divider()
 st.markdown("""
 <div style="text-align: center; color: #64748b; font-size: 0.82rem; line-height: 1.5;">
-    <strong>Host-Tumor Biophysical Index (HTBI) Research Framework</strong> · Sviluppato da <strong>Luca Celebrano</strong> (MD Candidate, Università degli Studi di Napoli Federico II).<br>
+    <strong>Host-Tumor Biophysical Index (HTBI) Research Framework</strong> · Sviluppato da <strong>Luca Celebrano</strong> (Independent Researcher).<br>
     Distribuito con licenza <strong>Creative Commons Attribution 4.0 International (CC-BY-4.0)</strong> · Software DOI: <a href="https://doi.org/10.5281/zenodo.24241000" target="_blank" style="color: #2563eb; text-decoration: underline;">10.5281/zenodo.24241000</a> · ELIXIR bio.tools: <a href="https://bio.tools/htbi-bedside-calculator" target="_blank" style="color: #2563eb; text-decoration: underline;">htbi-bedside-calculator</a>.<br>
     Validato su coorti cliniche retrospettive (MSKCC <em>N = 604</em>, Coorte Ematica <em>N = 1,056</em>). Strumento riservato esclusivamente a ricerca accademica, traslazionale e didattica (RUO).
 </div>

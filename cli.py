@@ -2,7 +2,7 @@
 """
 HTBI Bedside Calculator — Command Line Interface (CLI)
 Host-Tumor Biophysical Index (HTBI) Continuous Risk Modeler
-Author: Luca Celebrano, MD Candidate (Università degli Studi di Napoli Federico II)
+Author: Luca Celebrano, Independent Researcher
 License: Creative Commons Attribution 4.0 International (CC BY 4.0)
 """
 

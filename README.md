@@ -5,14 +5,14 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![bio.tools](https://img.shields.io/badge/bio.tools-htbi--bedside--calculator-blue.svg)](https://bio.tools/htbi-bedside-calculator)
 [![GitHub Stars](https://img.shields.io/github/stars/Lukecele/htbi-bedside-calculator?style=social)](https://github.com/Lukecele/htbi-bedside-calculator)
-[![Preprint DOI](https://img.shields.io/badge/Preprint_DOI-10.21203%2Frs.3.rs--11695210%2Fv1-blue.svg)](https://doi.org/10.21203/rs.3.rs-11695210/v1)
+[![Preprint DOI]()]()
 [![Analysis Pipeline Zenodo DOI](https://img.shields.io/badge/Pipeline_DOI-10.5281%2Fzenodo.24118328-blue.svg)](https://doi.org/10.5281/zenodo.24118328)
 
 An interactive *in silico* translational and educational dashboard evaluating the **Host-Tumor Biophysical Index (HTBI)** across post-resection solid oncology cohorts.
 
 * **Live Web Application:** [https://htbi-bedside-calculator-yu8jwzkifktp2bvvs4ped4.streamlit.app/](https://htbi-bedside-calculator-yu8jwzkifktp2bvvs4ped4.streamlit.app/)
 * **Author:** Luca Celebrano, MD Candidate ([ORCID: 0009-0007-0931-3555](https://orcid.org/0009-0007-0931-3555))  
-  *Department of Clinical Medicine and Surgery, School of Medicine and Surgery, Università degli Studi di Napoli Federico II, Naples, Italy*
+  *Independent Researcher, Naples, Italy*
 * **License:** Creative Commons Attribution 4.0 International (CC BY 4.0)
 * **ELIXIR bio.tools ID:** `biotools:htbi-bedside-calculator`
 
@@ -76,7 +76,7 @@ If you use this software, computational framework, or the interactive explorer i
 > Celebrano, L. (2026). *HTBI Research Explorer: Interactive Biophysical Risk Modeler* (Version 1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24241000
 
 ### Associated Research Article:
-> Celebrano, L. (2026). *Continuum Biophysics of Post-Resection Relapse Kinetics: Resolving the R0 Margins Paradox and ADAURA Post-Adjuvant Rebound via a Validated Host-Tumor Biophysical Index (HTBI)*. Research Square. https://doi.org/10.21203/rs.3.rs-11695210/v1
+> Celebrano, L. (2026). *Continuum Biophysics of Post-Resection Relapse Kinetics: Resolving the R0 Margins Paradox and ADAURA Post-Adjuvant Rebound via a Validated Host-Tumor Biophysical Index (HTBI)*. Research Square. 
 
 ### BibTeX:
 ```bibtex
@@ -96,7 +96,7 @@ If you use this software, computational framework, or the interactive explorer i
   title = {{Continuum Biophysics of Post-Resection Relapse Kinetics: Resolving the R0 Margins Paradox and ADAURA Post-Adjuvant Rebound via a Validated Host-Tumor Biophysical Index (HTBI)}},
   journal = {Research Square},
   year = {2026},
-  doi = {10.21203/rs.3.rs-11695210/v1}
+  doi = {}
 }
 ```
 
