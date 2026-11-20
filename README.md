@@ -2,10 +2,10 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24241000.svg)](https://doi.org/10.5281/zenodo.24241000)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://htbi-bedside-calculator-yu8jwzkifktp2bvvs4ped4.streamlit.app/)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![bio.tools](https://img.shields.io/badge/bio.tools-htbi--bedside--calculator-blue.svg)](https://bio.tools/htbi-bedside-calculator)
 [![GitHub Stars](https://img.shields.io/github/stars/Lukecele/htbi-bedside-calculator?style=social)](https://github.com/Lukecele/htbi-bedside-calculator)
-[![Preprint DOI]()]()
+
 [![Analysis Pipeline Zenodo DOI](https://img.shields.io/badge/Pipeline_DOI-10.5281%2Fzenodo.24118328-blue.svg)](https://doi.org/10.5281/zenodo.24118328)
 
 An interactive *in silico* translational and educational dashboard evaluating the **Host-Tumor Biophysical Index (HTBI)** across post-resection solid oncology cohorts.
