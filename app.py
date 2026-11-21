@@ -393,7 +393,7 @@ st.divider()
 st.markdown("""
 <div style="text-align: center; color: #64748b; font-size: 0.82rem; line-height: 1.5;">
     <strong>Host-Tumor Biophysical Index (HTBI) Research Framework</strong> · Sviluppato da <strong>Luca Celebrano</strong> (Independent Researcher).<br>
-    Distribuito con licenza <strong>Creative Commons Attribution 4.0 International (CC-BY-4.0)</strong> · Software DOI: <a href="https://doi.org/10.5281/zenodo.24241000" target="_blank" style="color: #2563eb; text-decoration: underline;">10.5281/zenodo.24241000</a> · ELIXIR bio.tools: <a href="https://bio.tools/htbi-bedside-calculator" target="_blank" style="color: #2563eb; text-decoration: underline;">htbi-bedside-calculator</a>.<br>
+    Distribuito con licenza <strong>Creative Commons Attribution 4.0 International (CC-BY-4.0)</strong> · Software DOI: <a href="https://doi.org/10.5281/zenodo.24241000" target="_blank" style="color: #2563eb; text-decoration: underline;">10.5281/zenodo.24241000</a> · ELIXIR bio.tools: <a href="https://bio.tools/htbi-bedside-app-v2" target="_blank" style="color: #2563eb; text-decoration: underline;">htbi-bedside-app-v2</a>.<br>
     Validato su coorti cliniche retrospettive (MSKCC <em>N = 604</em>, Coorte Ematica <em>N = 1,056</em>). Strumento riservato esclusivamente a ricerca accademica, traslazionale e didattica (RUO).
 </div>
 """, unsafe_allow_html=True)
