@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24241000.svg)](https://doi.org/10.5281/zenodo.24241000)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://htbi-bedside-calculator-yu8jwzkifktp2bvvs4ped4.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![bio.tools](https://img.shields.io/badge/bio.tools-htbi--bedside--calculator-blue.svg)](https://bio.tools/htbi-bedside-calculator)
+[![bio.tools](https://img.shields.io/badge/bio.tools-htbi--bedside--app--v2-blue.svg)](https://bio.tools/htbi-bedside-app-v2)
 [![GitHub Stars](https://img.shields.io/github/stars/Lukecele/htbi-bedside-calculator?style=social)](https://github.com/Lukecele/htbi-bedside-calculator)
 
 [![Analysis Pipeline Zenodo DOI](https://img.shields.io/badge/Pipeline_DOI-10.5281%2Fzenodo.24118328-blue.svg)](https://doi.org/10.5281/zenodo.24118328)
@@ -14,7 +14,7 @@ An interactive *in silico* translational and educational dashboard evaluating th
 * **Author:** Luca Celebrano, MD Candidate ([ORCID: 0009-0007-0931-3555](https://orcid.org/0009-0007-0931-3555))  
   *Independent Researcher, Naples, Italy*
 * **License:** Creative Commons Attribution 4.0 International (CC BY 4.0)
-* **ELIXIR bio.tools ID:** `biotools:htbi-bedside-calculator`
+* **ELIXIR bio.tools ID:** [`biotools:htbi-bedside-app-v2`](https://bio.tools/htbi-bedside-app-v2)
 
 ---
 
