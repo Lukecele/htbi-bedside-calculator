@@ -1,6 +1,6 @@
 # HTBI Research Explorer: Interactive Biophysical Risk Modeler
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24241000.svg)](https://doi.org/10.5281/zenodo.24241000)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.24393471-blue)](https://doi.org/10.5281/zenodo.24393471)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://htbi-bedside-calculator-yu8jwzkifktp2bvvs4ped4.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![bio.tools](https://img.shields.io/badge/bio.tools-htbi--bedside--app--v2-blue.svg)](https://bio.tools/htbi-bedside-app-v2)
@@ -73,7 +73,7 @@ For web dashboard, open `http://localhost:8501` in your browser.
 If you use this software, computational framework, or the interactive explorer in your research, please cite:
 
 ### Software Citation (Zenodo DOI):
-> Celebrano, L. (2026). *HTBI Research Explorer: Interactive Biophysical Risk Modeler* (Version 1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24241000
+> Celebrano, L. (2026). *HTBI Research Explorer: Interactive Biophysical Risk Modeler* (Version 1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24393471
 
 ### Associated Research Article:
 > Celebrano, L. (2026). *Continuum Biophysics of Post-Resection Relapse Kinetics: Resolving the R0 Margins Paradox and ADAURA Post-Adjuvant Rebound via a Validated Host-Tumor Biophysical Index (HTBI)*. Research Square. 
@@ -87,7 +87,7 @@ If you use this software, computational framework, or the interactive explorer i
   version = {1.0.0},
   publisher = {Zenodo},
   doi = {10.5281/zenodo.24241000},
-  url = {https://doi.org/10.5281/zenodo.24241000},
+  url = {https://doi.org/10.5281/zenodo.24393471},
   license = {CC-BY-4.0}
 }
 
