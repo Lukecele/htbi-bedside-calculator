@@ -6,7 +6,7 @@
 [![bio.tools](https://img.shields.io/badge/bio.tools-htbi--bedside--app--v2-blue.svg)](https://bio.tools/htbi-bedside-app-v2)
 [![GitHub Stars](https://img.shields.io/github/stars/Lukecele/htbi-bedside-calculator?style=social)](https://github.com/Lukecele/htbi-bedside-calculator)
 
-[![Analysis Pipeline Zenodo DOI](https://img.shields.io/badge/Pipeline_DOI-10.5281%2Fzenodo.24118328-blue.svg)](https://doi.org/10.5281/zenodo.24118328)
+[![Analysis Pipeline Zenodo DOI](https://img.shields.io/badge/Pipeline_DOI-10.5281%2Fzenodo.24393472-blue)](https://doi.org/10.5281/zenodo.24393472)
 
 An interactive *in silico* translational and educational dashboard evaluating the **Host-Tumor Biophysical Index (HTBI)** across post-resection solid oncology cohorts.
 
@@ -86,7 +86,7 @@ If you use this software, computational framework, or the interactive explorer i
   year = {2026},
   version = {1.0.0},
   publisher = {Zenodo},
-  doi = {10.5281/zenodo.24241000},
+  doi = {10.5281/zenodo.24393471},
   url = {https://doi.org/10.5281/zenodo.24393471},
   license = {CC-BY-4.0}
 }
